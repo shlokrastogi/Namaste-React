@@ -3,6 +3,7 @@ import AppLayout from "./components/AppLayout";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AboutUs from "./components/AboutUs";
 import ConatactUs from "./components/ContactUs";
+import Error from "./components/Error";
 /**
  * Header
  * -logo
@@ -29,6 +30,7 @@ const appRouter = createBrowserRouter([
   {
     path: "/",
     element: <AppLayout />,
+    errorElement: <Error />,
   },
 
   {
