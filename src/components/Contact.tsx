@@ -1,8 +1,8 @@
-const ConatactUs = () => {
+const Conatact = () => {
   return (
     <div className="contact-page">
       <h1>Contact Us Page</h1>
     </div>
   );
 };
-export default ConatactUs;
+export default Conatact;

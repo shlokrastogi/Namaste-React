@@ -1,8 +1,8 @@
 import ReactDOM from "react-dom/client";
 import AppLayout from "./components/AppLayout";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import AboutUs from "./components/AboutUs";
-import ConatactUs from "./components/ContactUs";
+import About from "./components/About";
+import Contact from "./components/Contact";
 import Error from "./components/Error";
 /**
  * Header
@@ -34,13 +34,13 @@ const appRouter = createBrowserRouter([
   },
 
   {
-    path: "/aboutUs",
-    element: <AboutUs />,
+    path: "/about",
+    element: <About />,
   },
 
   {
-    path: "/contactUs",
-    element: <ConatactUs />,
+    path: "/contact",
+    element: <Contact />,
   },
 ]);
 
