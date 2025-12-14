@@ -6,6 +6,7 @@ import Contact from "./components/Contact";
 import Error from "./components/Error";
 import Body from "./components/Body";
 import Cart from "./components/Cart";
+import RestaurantMenu from "./components/RestaurantMenu";
 
 /**
  * Header
@@ -50,6 +51,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/cart",
         element: <Cart />,
+      },
+      {
+        path: "/restaurant/:resId",
+        element: <RestaurantMenu />,
       },
     ],
     errorElement: <Error />,
