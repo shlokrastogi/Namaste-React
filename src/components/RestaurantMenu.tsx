@@ -1,14 +1,60 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { fetchMenuData } from "../utils/fetchMenuData";
+import { MenuItem } from "../types/menu";
+import { useParams } from "react-router-dom";
+import Shimmer from "./Shimmer";
 
 const RestaurantMenu = () => {
+  const { resId } = useParams<{ resId: string }>();
+  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+  const [restaurantName, setRestaurantName] = useState<string>("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!resId) return;
+
+    const getMenuData = async () => {
+      const data = await fetchMenuData(resId);
+      if (!data) {
+        setLoading(false);
+        return;
+      }
+
+      //Restaurant Name
+      setRestaurantName(data?.data?.cards?.[0]?.card?.card?.info?.name || "");
+
+      //Menu Items
+      const menuCards = data?.data?.cards?.find((c: any) => c.groupedCard)
+        ?.groupedCard?.cardGroupMap?.REGULAR?.cards;
+
+      const items: MenuItem[] = [];
+
+      menuCards.forEach((card: any) => {
+        card?.card?.card?.itemCards?.forEach((item: any) => {
+          items.push(item.card.info);
+        });
+      });
+
+      setMenuItems(items);
+      setLoading(false);
+    };
+
+    getMenuData();
+  }, [resId]);
+
+  if (loading) return <Shimmer />;
+
   return (
     <div className="menu">
-      <h1>Name of Restaurant</h1>
+      <h1>{restaurantName}</h1>
       <h2>Menu</h2>
+
       <ul>
-        <li>Dish 1 - $10</li>
-        <li>Dish 2 - $15</li>
-        <li>Dish 3 - $20</li>
+        {menuItems.map((item) => (
+          <li key={item.id}>
+            {item.name} - ₹{(item.price ?? 0) / 100}
+          </li>
+        ))}
       </ul>
     </div>
   );
