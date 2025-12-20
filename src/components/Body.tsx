@@ -25,8 +25,9 @@ const Body = () => {
       }
 
       const apiList =
-        restData?.data?.cards?.[1]?.card?.card?.gridElements?.infoWithStyle
-          ?.restaurants || [];
+        restData?.data?.cards?.find(
+          (c: any) => c?.card?.card?.gridElements?.infoWithStyle?.restaurants
+        )?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
 
       const restList: RestaurantType[] = apiList.map((item: any) => {
         const info = item.info;
@@ -46,6 +47,8 @@ const Body = () => {
     fetchData();
   }, []);
 
+  if (loading) return <Shimmer />;
+
   return (
     <div className="body">
       <div className="filter">
@@ -55,11 +58,11 @@ const Body = () => {
           placeholder="Search Restaurants"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
-        ></input>
+        />
+
         <button
           className="search-btn"
           onClick={() => {
-            //Filter the Restaurant Card and update the UI
             const filteredList = allList.filter((res) =>
               res.name.toLowerCase().includes(searchText.toLowerCase())
             );
@@ -72,7 +75,7 @@ const Body = () => {
         <button
           className="filter-btn"
           onClick={() => {
-            setList(allList.filter((res) => parseFloat(res.avgRating) >= 4.5));
+            setList(allList.filter((res) => Number(res.avgRating) >= 4.5));
           }}
         >
           Top Rated Restaurants
@@ -80,8 +83,6 @@ const Body = () => {
       </div>
 
       <div className="res-container">
-        {loading ? <Shimmer /> : ""}
-
         {list.map((res) => (
           <RestaurantCard key={res.id} restaurant={res} />
         ))}
@@ -89,5 +90,4 @@ const Body = () => {
     </div>
   );
 };
-
 export default Body;
