@@ -3,11 +3,8 @@ import { Link } from "react-router-dom";
 
 const RestaurantCard = ({ restaurant }: { restaurant: RestaurantType }) => {
   return (
-    <Link
-      to={`/restaurant/${restaurant.id}`}
-      style={{ textDecoration: "none", color: "inherit" }}
-    >
-      <div className="res-card">
+    <div className="res-card">
+      <Link className="card-link" to={`/restaurant/${restaurant.id}`}>
         <div className="res-img">
           <img
             src={
@@ -26,8 +23,8 @@ const RestaurantCard = ({ restaurant }: { restaurant: RestaurantType }) => {
             | {restaurant.deliveryTime} mins
           </span>
         </h4>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 };
 
