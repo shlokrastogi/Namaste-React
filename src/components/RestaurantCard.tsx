@@ -15,7 +15,7 @@ const RestaurantCard = ({ restaurant }: { restaurant: RestaurantType }) => {
           />
         </div>
         <h3>{restaurant.name}</h3>
-        <h4>{restaurant.cuisines.join(", ")}</h4>
+        <h4 className="rest-cuisines-name">{restaurant.cuisines.join(", ")}</h4>
         <h4>
           <span className="food-rating">{restaurant.avgRating} ★</span>
           <span className="deliveryTime">
