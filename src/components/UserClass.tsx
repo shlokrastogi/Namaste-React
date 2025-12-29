@@ -26,6 +26,15 @@ class UserClass extends React.Component<UserProps, UserState> {
     return (
       <div className="user-card">
         <h1>count: {count}</h1>
+        <button
+          onClick={() => {
+            this.setState({
+              count: this.state.count + 1,
+            });
+          }}
+        >
+          Increase count
+        </button>
         <h2>Name: {name}</h2>
         <h2>Location: Delhi</h2>
         <h2>Contact: shlok@1934</h2>
