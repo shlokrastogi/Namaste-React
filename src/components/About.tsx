@@ -23,7 +23,8 @@ class About extends Component {
 
         <User name={"Shlok Rastogi from (functional component)"} />
 
-        <UserClass name={"Shlok Rastogi from (class)"} />
+        <UserClass name={"First child"} />
+        <UserClass name={"Second child"} />
       </div>
     );
   }
