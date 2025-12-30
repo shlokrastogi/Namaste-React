@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState("Login");
 
@@ -18,24 +18,44 @@ const Header = () => {
       <div className="nav-items">
         <ul>
           <li>
-            <Link to="/" className="nav-links">
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive ? "nav-link active" : "nav-link"
+              }
+            >
               Home
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/about" className="nav-links">
+            <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                isActive ? "nav-link active" : "nav-link"
+              }
+            >
               About Us
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/cart" className="nav-links">
+            <NavLink
+              to="/cart"
+              className={({ isActive }) =>
+                isActive ? "nav-link active" : "nav-link"
+              }
+            >
               Cart
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/contact" className="nav-links">
+            <NavLink
+              to="/contact"
+              className={({ isActive }) =>
+                isActive ? "nav-link active" : "nav-link"
+              }
+            >
               Contact Us
-            </Link>
+            </NavLink>
           </li>
         </ul>
       </div>

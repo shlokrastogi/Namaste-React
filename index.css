@@ -42,28 +42,35 @@
 
 .nav-items > ul > li {
   list-style-type: none;
-  padding: 5px 25px;
   color: white;
+  padding: 5px 0px;
 }
 
-.nav-items > ul > li:hover {
-  /* background-color: rgb(133, 13, 13); */
+/* .nav-items > ul > li:hover {
   background-color: white;
   color: red;
-  /* text-shadow: 1px 1px 2px #000000; */
   text-decoration: underline;
   border-radius: 25px;
-  /* outline: solid 1.5px white; */
   cursor: pointer;
-}
+} */
 
-.nav-links {
+.nav-link {
   text-decoration: none;
   color: inherit;
+  padding: 5px 25px;
+}
+
+.nav-link.active {
+  background-color: white;
+  padding: 5px 25px;
+  color: red;
+  border-radius: 25px;
+  text-decoration: underline;
 }
 
 .login-btn > button {
   padding: 8px 16px;
+  margin-right: 10px;
   border-radius: 20px;
   border: none;
   background-color: #ffffff;
@@ -74,6 +81,10 @@
 
 .body {
   padding: 20px;
+}
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 
 .filter {

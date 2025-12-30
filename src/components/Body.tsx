@@ -3,6 +3,7 @@ import RestaurantCard from "./RestaurantCard";
 import { useState, useEffect } from "react";
 import { fetchRestaurantsData } from "../utils/fetchRestaurant";
 import Shimmer from "./Shimmer";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
   // State variable to hold the list of restaurants to display
@@ -13,6 +14,8 @@ const Body = () => {
   const [loading, setLoading] = useState(true);
 
   const [searchText, setSearchText] = useState("");
+
+  const OnlineStatus = useOnlineStatus();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,6 +49,14 @@ const Body = () => {
     };
     fetchData();
   }, []);
+  //Checking if the User is Offline or Online
+  if (OnlineStatus === false) {
+    return (
+      <h1>
+        Looks like you are offline!! Please check your Internet Connection.
+      </h1>
+    );
+  }
 
   if (loading) return <Shimmer />;
 
