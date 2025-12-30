@@ -57,6 +57,17 @@ const Header = () => {
               Contact Us
             </NavLink>
           </li>
+
+          <li>
+            <NavLink
+              to="/grocery"
+              className={({ isActive }) =>
+                isActive ? "nav-link active" : "nav-link"
+              }
+            >
+              Grocery
+            </NavLink>
+          </li>
         </ul>
       </div>
       <div className="login-btn">

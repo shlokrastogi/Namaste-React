@@ -7,6 +7,15 @@ import Error from "./components/Error";
 import Body from "./components/Body";
 import Cart from "./components/Cart";
 import RestaurantMenu from "./components/RestaurantMenu";
+import { lazy, Suspense } from "react";
+
+//Chunking
+//Lazy loading
+//Code Chunking
+//Dynamic Bundling
+//OnDemand Loading
+//Dynamic Import
+const Grocery = lazy(() => import("./components/Grocery"));
 
 /**
  * Header
@@ -51,6 +60,18 @@ const appRouter = createBrowserRouter([
       {
         path: "/cart",
         element: <Cart />,
+      },
+      {
+        path: "/grocery",
+        element: (
+          //Suspense prevents rendering breaks during async loading
+
+          // A component loaded via React.lazy() is fetched asynchronously.
+          // Without Suspense, React would have no way to handle the “loading gap” and the UI would break.
+          <Suspense fallback={<h1>Loading...</h1>}>
+            <Grocery />
+          </Suspense>
+        ),
       },
       {
         path: "/restaurant/:resId",

@@ -50,7 +50,7 @@ const RestaurantMenu = () => {
 
   return (
     <div className="menu">
-      <h1>{restaurantName}</h1>
+      <h1 className="menu-res-name">{restaurantName}</h1>
       <h2>Menu</h2>
 
       <ul>
