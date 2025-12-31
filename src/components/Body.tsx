@@ -1,5 +1,5 @@
 import { RestaurantType } from "../types/restaurant";
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
 import { useState, useEffect } from "react";
 import { fetchRestaurantsData } from "../utils/fetchRestaurant";
 import Shimmer from "./Shimmer";
@@ -16,6 +16,8 @@ const Body = () => {
   const [searchText, setSearchText] = useState("");
 
   const OnlineStatus = useOnlineStatus();
+
+  const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,6 +43,9 @@ const Body = () => {
           cloudinaryImageId: info.cloudinaryImageId,
           avgRating: info.avgRating,
           deliveryTime: info.sla.deliveryTime,
+
+          //Mark promoted
+          promoted: Number(info.avgRating) >= 4.5,
         };
       });
       setList(restList);
@@ -49,6 +54,7 @@ const Body = () => {
     };
     fetchData();
   }, []);
+
   //Checking if the User is Offline or Online
   if (OnlineStatus === false) {
     return (
@@ -94,9 +100,10 @@ const Body = () => {
       </div>
 
       <div className="res-container">
-        {list.map((res) => (
-          <RestaurantCard key={res.id} restaurant={res} />
-        ))}
+        {list.map((res) => {
+          const Card = res.promoted ? RestaurantCardPromoted : RestaurantCard;
+          return <Card key={res.id} restaurant={res} />;
+        })}
       </div>
     </div>
   );

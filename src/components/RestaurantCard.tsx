@@ -2,6 +2,8 @@ import { RestaurantType } from "../types/restaurant";
 import { Link } from "react-router-dom";
 
 const RestaurantCard = ({ restaurant }: { restaurant: RestaurantType }) => {
+  if (!restaurant) return null; // prevents crash if prop is missing
+
   return (
     <div className="res-card">
       <Link className="card-link" to={`/restaurant/${restaurant.id}`}>
@@ -26,6 +28,20 @@ const RestaurantCard = ({ restaurant }: { restaurant: RestaurantType }) => {
       </Link>
     </div>
   );
+};
+
+//Higher Order component
+//input - RetaurantCard  output-Promoted RestaurantCard
+
+export const withPromotedLabel = (Component: any) => {
+  return (props: any) => {
+    return (
+      <div className="promoted-wrapper">
+        <label className="promoted-badge">Promoted</label>
+        <Component {...props} />
+      </div>
+    );
+  };
 };
 
 export default RestaurantCard;

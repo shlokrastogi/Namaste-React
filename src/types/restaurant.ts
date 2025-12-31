@@ -5,4 +5,6 @@ export interface RestaurantType {
   cloudinaryImageId: string;
   avgRating: string;
   deliveryTime: number; // final value
+
+  promoted?: boolean;
 }
