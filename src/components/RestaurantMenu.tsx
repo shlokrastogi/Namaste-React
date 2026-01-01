@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { fetchMenuData } from "../utils/fetchMenuData";
-import { MenuItem } from "../types/menu";
+import { menuItem } from "../types/menuItem";
 import { useParams } from "react-router-dom";
 import Shimmer from "./Shimmer";
 
 const RestaurantMenu = () => {
   const { resId } = useParams<{ resId: string }>();
-  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+  const [menuItems, setMenuItems] = useState<menuItem[]>([]);
   const [restaurantName, setRestaurantName] = useState<string>("");
   const [loading, setLoading] = useState(true);
 
@@ -23,11 +23,13 @@ const RestaurantMenu = () => {
       //Restaurant Name
       setRestaurantName(data?.data?.cards?.[0]?.card?.card?.info?.name || "");
 
+      console.log(data?.data?.cards?.[0]);
+
       //Menu Items
       const menuCards = data?.data?.cards?.find((c: any) => c.groupedCard)
         ?.groupedCard?.cardGroupMap?.REGULAR?.cards;
 
-      const items: MenuItem[] = [];
+      const items: menuItem[] = [];
 
       menuCards.forEach((card: any) => {
         card?.card?.card?.itemCards?.forEach((item: any) => {

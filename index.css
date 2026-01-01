@@ -134,7 +134,7 @@ body::-webkit-scrollbar {
   );
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   width: 200px;
-  height: auto;
+  height: max-content;
   margin: 20px;
   border-radius: 5px;
   padding: 5px;
