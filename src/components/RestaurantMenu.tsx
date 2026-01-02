@@ -19,11 +19,12 @@ const RestaurantMenu = () => {
         setLoading(false);
         return;
       }
+      console.log(data);
 
       //Restaurant Name
       setRestaurantName(data?.data?.cards?.[0]?.card?.card?.info?.name || "");
 
-      console.log(data?.data?.cards?.[0]);
+      // console.log(data?.data?.cards?.[0]);
 
       //Menu Items
       const menuCards = data?.data?.cards?.find((c: any) => c.groupedCard)
