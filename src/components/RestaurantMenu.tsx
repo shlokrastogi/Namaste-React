@@ -6,7 +6,10 @@ import Shimmer from "./Shimmer";
 
 const RestaurantMenu = () => {
   const { resId } = useParams<{ resId: string }>();
-  const [menuItems, setMenuItems] = useState<menuItem[]>([]);
+  const [menuItems, setMenuItems] = useState<
+    { title: string; items: menuItem[] }[]
+  >([]);
+
   const [restaurantName, setRestaurantName] = useState<string>("");
   const [loading, setLoading] = useState(true);
 
@@ -19,6 +22,7 @@ const RestaurantMenu = () => {
         setLoading(false);
         return;
       }
+      console.log(resId);
       console.log(data);
 
       //Restaurant Name
@@ -30,19 +34,34 @@ const RestaurantMenu = () => {
       const menuCards = data?.data?.cards?.find((c: any) => c.groupedCard)
         ?.groupedCard?.cardGroupMap?.REGULAR?.cards;
 
-      const items: menuItem[] = [];
+      const categories: any[] = [];
 
       menuCards.forEach((card: any) => {
-        card?.card?.card?.itemCards?.forEach((item: any) => {
-          items.push(item.card.info);
-        });
+        const cardData = card?.card?.card;
+        if (!cardData) return;
+
+        // Case 1 — direct ItemCategory
+        if (cardData?.itemCards?.length) {
+          categories.push({
+            title: cardData.title,
+            items: cardData.itemCards.map((i: any) => i.card.info),
+          });
+        }
+
+        // Case 2 — nested categories[]
+        if (cardData?.categories?.length) {
+          cardData.categories.forEach((cat: any) => {
+            categories.push({
+              title: cat.title,
+              items: cat.itemCards?.map((i: any) => i.card.info) || [],
+            });
+          });
+        }
       });
 
-      const uniqueItems = Array.from(
-        new Map(items.map((item) => [item.id, item])).values()
-      );
+      const filtered = categories.filter((c) => c.items && c.items.length > 0);
 
-      setMenuItems(uniqueItems);
+      setMenuItems(filtered);
       setLoading(false);
     };
 
