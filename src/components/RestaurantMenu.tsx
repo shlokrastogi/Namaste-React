@@ -1,87 +1,63 @@
 import { useEffect, useState } from "react";
-import { fetchMenuData } from "../utils/fetchMenuData";
-import { menuItem } from "../types/menuItem";
 import { useParams } from "react-router-dom";
-import Shimmer from "./Shimmer";
+
+import { fetchMenuData } from "../utils/fetchMenuData";
+import { menuCategory } from "../types/MenuCategory";
+
+import AccordionCategory from "../components/AccordionCategory";
+import Shimmer from "../components/Shimmer";
 
 const RestaurantMenu = () => {
   const { resId } = useParams<{ resId: string }>();
-  const [menuItems, setMenuItems] = useState<
-    { title: string; items: menuItem[] }[]
-  >([]);
-
-  const [restaurantName, setRestaurantName] = useState<string>("");
-  const [loading, setLoading] = useState(true);
+  const [categories, setCategories] = useState<menuCategory[] | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!resId) return;
 
-    const getMenuData = async () => {
-      const data = await fetchMenuData(resId);
-      if (!data) {
-        setLoading(false);
-        return;
+    const fetchData = async () => {
+      try {
+        setCategories(null); // show loading
+        const data = await fetchMenuData(resId);
+
+        console.log(data);
+
+        // Ensure categories exist
+        if (!data?.categories) {
+          setCategories([]);
+          return;
+        }
+
+        setCategories(data.categories);
+      } catch (err) {
+        console.error("Failed to fetch menu:", err);
+        setError("Failed to load menu. Please try again.");
       }
-      console.log(resId);
-      console.log(data);
-
-      //Restaurant Name
-      setRestaurantName(data?.data?.cards?.[0]?.card?.card?.info?.name || "");
-
-      // console.log(data?.data?.cards?.[0]);
-
-      //Menu Items
-      const menuCards = data?.data?.cards?.find((c: any) => c.groupedCard)
-        ?.groupedCard?.cardGroupMap?.REGULAR?.cards;
-
-      const categories: any[] = [];
-
-      menuCards.forEach((card: any) => {
-        const cardData = card?.card?.card;
-        if (!cardData) return;
-
-        // Case 1 — direct ItemCategory
-        if (cardData?.itemCards?.length) {
-          categories.push({
-            title: cardData.title,
-            items: cardData.itemCards.map((i: any) => i.card.info),
-          });
-        }
-
-        // Case 2 — nested categories[]
-        if (cardData?.categories?.length) {
-          cardData.categories.forEach((cat: any) => {
-            categories.push({
-              title: cat.title,
-              items: cat.itemCards?.map((i: any) => i.card.info) || [],
-            });
-          });
-        }
-      });
-
-      const filtered = categories.filter((c) => c.items && c.items.length > 0);
-
-      setMenuItems(filtered);
-      setLoading(false);
     };
 
-    getMenuData();
+    fetchData();
   }, [resId]);
 
-  if (loading) return <Shimmer />;
+  const handleToggle = (index: number) => {
+    setOpenIndex((prev) => (prev === index ? null : index));
+  };
+
+  if (error) return <p className="text-red-500">{error}</p>;
+  if (categories === null) return <Shimmer />; // loading state
+
+  if (categories.length === 0) return <p>No menu available.</p>;
 
   return (
-    <div className="menu">
-      <h1 className="menu-res-name">{restaurantName}</h1>
-      <h2>Menu</h2>
-
-      <ul>
-        {menuItems.map((item) => (
-          <li key={item.id}>
-            {item.name} - ₹{(item.price ?? 0) / 100}
-          </li>
-        ))}
-      </ul>
+    <div className="space-y-4 mt-4">
+      {categories.map((category, index) => (
+        <AccordionCategory
+          key={`${category.title}-${index}`}
+          category={category}
+          isOpen={openIndex === index}
+          onToggle={() => handleToggle(index)}
+        />
+      ))}
     </div>
   );
 };
