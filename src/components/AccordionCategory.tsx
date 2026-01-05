@@ -1,6 +1,6 @@
 import AccordionHeader from "./AccordianHeader";
 import AccordionBody from "./AccordianBody";
-import { menuCategory } from "../types/MenuCategory";
+import { menuCategory } from "../types/menuCategory";
 
 interface AccordionCategoryProps {
   category: menuCategory;
@@ -14,7 +14,7 @@ const AccordionCategory = ({
   onToggle,
 }: AccordionCategoryProps) => {
   return (
-    <div className="border rounded-xl p-3 bg-white shadow-sm">
+    <div className="w-4/6 flex m-auto flex-col border rounded-xl p-3 bg-white shadow-sm">
       <AccordionHeader
         title={`${category.title} (${category.items.length})`}
         isOpen={isOpen}

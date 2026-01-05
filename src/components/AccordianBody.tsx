@@ -7,23 +7,23 @@ interface AccordionBodyProps {
 const AccordionBody = ({ items }: AccordionBodyProps) => {
   return (
     <div className="mt-2 space-y-3">
-      {items.map((item) => (
-        <div
-          key={item.id} // ✔ UNIQUE + STABLE KEY
-          className="flex justify-between items-start border-b pb-2"
-        >
-          <div>
-            <p className="font-semibold text-gray-800">{item.name}</p>
+      {items.map((item) => {
+        const price = (item.price ?? item.defaultPrice ?? 0) / 100;
+
+        return (
+          <div key={item.id} className="border-b pb-2 last:border-none">
+            <p className="font-medium">{item.name}</p>
+
+            {price > 0 && (
+              <p className="text-sm text-gray-600 font-medium">₹ {price}</p>
+            )}
+
             {item.description && (
               <p className="text-sm text-gray-500">{item.description}</p>
             )}
           </div>
-
-          {item.price && (
-            <p className="font-medium">₹{(item.price / 100).toFixed(0)}</p>
-          )}
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };
