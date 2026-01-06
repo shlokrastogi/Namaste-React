@@ -4,8 +4,14 @@ import { useParams } from "react-router-dom";
 import { fetchMenuData } from "../utils/fetchMenuData";
 import { menuCategory } from "../types/menuCategory";
 
-import AccordionCategory from "../components/AccordionCategory";
+import MenuItemsCategory from "./MenuItemsCategory";
 import Shimmer from "../components/Shimmer";
+
+// For named imports of parseMenucategories
+// import * as ParseModule from "../utils/parseMenuResponse";
+// const parseMenuCategories = ParseModule.parseMenuCategories;
+
+import parseMenuCategories from "../utils/parseMenuResponse";
 
 const RestaurantMenu = () => {
   const { resId } = useParams<{ resId: string }>();
@@ -25,56 +31,12 @@ const RestaurantMenu = () => {
 
         const data = await fetchMenuData(resId);
 
-        const cards = data?.data?.cards;
-
-        // Find the card containing grouped menu categories
-        const groupedCardContainer = cards?.find(
-          (c: any) => c?.groupedCard?.cardGroupMap?.REGULAR?.cards
-        );
-
-        const regularCards =
-          groupedCardContainer?.groupedCard?.cardGroupMap?.REGULAR?.cards;
-
-        if (!regularCards) {
+        if (!data?.data?.cards) {
           setCategories([]);
           return;
         }
 
-        // Normalize → always return { title, items[] }
-        const categoryList: menuCategory[] = regularCards
-          .filter((c: any) =>
-            c?.card?.card?.["@type"]?.includes("ItemCategory")
-          )
-          .map((c: any) => {
-            const card = c.card.card;
-
-            // Swiggy returns items in many shapes — normalize all
-            const rawItems =
-              card.items ??
-              card.itemCards ??
-              card.categories?.flatMap((cat: any) => cat?.itemCards) ??
-              [];
-
-            const items = rawItems.map((i: any) => {
-              const info = i?.card?.info ?? i;
-
-              return {
-                id: info?.id,
-                name: info?.name,
-                price: info?.price,
-                defaultPrice: info?.defaultPrice,
-                description: info?.description,
-                imageId: info?.imageId,
-              };
-            });
-
-            return {
-              title: card.title,
-              items,
-            };
-          });
-
-        setCategories(categoryList);
+        setCategories(parseMenuCategories(data));
       } catch (err) {
         console.error("Failed to fetch menu:", err);
         setError("Failed to load menu. Please try again.");
@@ -97,7 +59,7 @@ const RestaurantMenu = () => {
   return (
     <div className="space-y-4 mt-4">
       {categories.map((category, index) => (
-        <AccordionCategory
+        <MenuItemsCategory
           key={`${category.title}-${index}`}
           category={category}
           isOpen={openIndex === index}

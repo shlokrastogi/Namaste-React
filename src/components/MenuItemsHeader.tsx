@@ -1,10 +1,10 @@
-interface AccordionHeaderProps {
+interface MenuItemsHeaderProps {
   title: string;
   isOpen: boolean;
   onToggle: () => void;
 }
 
-const AccordionHeader = ({ title, isOpen, onToggle }: AccordionHeaderProps) => {
+const MenuItemsHeader = ({ title, isOpen, onToggle }: MenuItemsHeaderProps) => {
   return (
     <button
       onClick={onToggle}
@@ -16,4 +16,4 @@ const AccordionHeader = ({ title, isOpen, onToggle }: AccordionHeaderProps) => {
   );
 };
 
-export default AccordionHeader;
+export default MenuItemsHeader;

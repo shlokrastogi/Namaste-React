@@ -1,5 +1,6 @@
 import { RestaurantType } from "../types/restaurant";
 import { Link } from "react-router-dom";
+import { CDN_URL } from "../utils/constants";
 
 const RestaurantCard = ({ restaurant }: { restaurant: RestaurantType }) => {
   if (!restaurant) return null; // prevents crash if prop is missing
@@ -9,10 +10,7 @@ const RestaurantCard = ({ restaurant }: { restaurant: RestaurantType }) => {
       <Link className="card-link" to={`/restaurant/${restaurant.id}`}>
         <div className="res-img">
           <img
-            src={
-              "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" +
-              restaurant.cloudinaryImageId
-            }
+            src={CDN_URL + restaurant.cloudinaryImageId}
             alt={restaurant.name}
           />
         </div>

@@ -1,18 +1,18 @@
-import AccordionHeader from "./AccordianHeader";
-import AccordionBody from "./AccordianBody";
+import AccordionHeader from "./MenuItemsHeader";
+import AccordionBody from "./MenuItemsBody";
 import { menuCategory } from "../types/menuCategory";
 
-interface AccordionCategoryProps {
+interface MenuItemsCategoryProps {
   category: menuCategory;
   isOpen: boolean;
   onToggle: () => void;
 }
 
-const AccordionCategory = ({
+const MenuItemsCategory = ({
   category,
   isOpen,
   onToggle,
-}: AccordionCategoryProps) => {
+}: MenuItemsCategoryProps) => {
   return (
     <div className="w-4/6 flex m-auto flex-col border rounded-xl p-3 bg-white shadow-sm">
       <AccordionHeader
@@ -26,4 +26,4 @@ const AccordionCategory = ({
   );
 };
 
-export default AccordionCategory;
+export default MenuItemsCategory;
