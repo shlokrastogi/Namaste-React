@@ -17,6 +17,8 @@ const parseMenuCategories = (data: any): menuCategory[] => {
     .map((c: any) => {
       const card = c.card.card;
 
+      console.log("regular card:", card);
+
       const rawItems =
         card.items ??
         card.itemCards ??
@@ -26,7 +28,7 @@ const parseMenuCategories = (data: any): menuCategory[] => {
       const items = rawItems.map((i: any) => {
         const info = i?.card?.info ?? i;
 
-        console.log("Item Info:", info.imageId);
+        // console.log("Item Info:", info.imageId);
 
         return {
           id: info?.id,
