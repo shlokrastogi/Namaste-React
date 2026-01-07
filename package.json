@@ -28,8 +28,10 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.11.2",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
+    "react-redux": "^9.2.0",
     "react-router-dom": "^6.23.1"
   }
 }

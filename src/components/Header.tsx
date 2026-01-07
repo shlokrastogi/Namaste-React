@@ -1,7 +1,19 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
+import UserContext from "../utils/UserContext";
+import { useSelector } from "react-redux";
+
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState("Login");
+
+  // Consuming context value using useContext hook
+  // We can also use change value of context through <UserContext.Provider> in App.tsx it will
+  // change the value throughout the component tree
+  const data = useContext(UserContext);
+  console.log(data);
+
+  // Suscribing to the Store using a useSelector hook
+  const cartItems = useSelector((store: any) => store.cart.items);
 
   return (
     <div className="header">
@@ -44,7 +56,7 @@ const Header = () => {
                 isActive ? "nav-link active" : "nav-link"
               }
             >
-              Cart
+              Cart 🛒 [{cartItems.length}]
             </NavLink>
           </li>
           <li>
@@ -80,6 +92,10 @@ const Header = () => {
         >
           {isLoggedIn}
         </button>
+      </div>
+
+      <div className="bg-white text-red-600 m-2 p-2 rounded-md font-bold">
+        {data.loggedInUser}
       </div>
     </div>
   );

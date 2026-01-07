@@ -1,11 +1,21 @@
 import { menuItem } from "../types/menuItem";
 import { CDN_URL } from "../utils/constants";
+import { useDispatch } from "react-redux";
+import { addItem } from "../utils/cartSlice";
+import { use } from "react";
 
 interface MenuItemsBodyProps {
   items: menuItem[];
 }
 
 const MenuItemsBody = ({ items }: MenuItemsBodyProps) => {
+  const dispatch = useDispatch();
+
+  const handleAddItemToCart = (item: menuItem) => {
+    //dispatch an action to add items to cart
+    dispatch(addItem(item));
+  };
+
   return (
     <div className="mt-2 space-y-3">
       {items.map((item) => {
@@ -35,7 +45,10 @@ const MenuItemsBody = ({ items }: MenuItemsBodyProps) => {
                   className="w-full h-28 object-cover rounded-md"
                 />
               )}
-              <button className="absolute bottom-5 right-3 translate-y-1/2 z-10 text-green-600 font-weight-600 bg-white border border-green-600  px-3 py-1 rounded-md hover:bg-green-600 hover:text-white transition">
+              <button
+                className="absolute bottom-5 right-3 translate-y-1/2 z-10 text-green-600 font-weight-600 bg-white border border-green-600  px-3 py-1 rounded-md hover:bg-green-600 hover:text-white transition"
+                onClick={() => handleAddItemToCart(item)}
+              >
                 Add +
               </button>
             </div>
