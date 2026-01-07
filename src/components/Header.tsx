@@ -49,16 +49,7 @@ const Header = () => {
               About Us
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to="/cart"
-              className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
-              }
-            >
-              Cart 🛒 [{cartItems.length}]
-            </NavLink>
-          </li>
+
           <li>
             <NavLink
               to="/contact"
@@ -78,6 +69,20 @@ const Header = () => {
               }
             >
               Grocery
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink
+              to="/cart"
+              className={({ isActive }) =>
+                isActive ? "nav-link active" : "nav-link"
+              }
+            >
+              Cart 🛒{" "}
+              <sup className="p-0.5 rounded-md bg-white text-red-600 font-bold">
+                {cartItems.length}
+              </sup>
             </NavLink>
           </li>
         </ul>
