@@ -1,11 +1,11 @@
-const Conatact = () => {
+const Contact = () => {
   return (
     <div className="m-4">
       <h1 className="font-bold text-center text-3xl p-4 m-4">
         Contact Us Page
       </h1>
 
-      <form>
+      <form aria-label="contact-form">
         <div className="flex flex-col items-center bg-gray-100 p-4 rounded-lg w-4/6 m-auto">
           <input
             type="text"
@@ -32,4 +32,4 @@ const Conatact = () => {
     </div>
   );
 };
-export default Conatact;
+export default Contact;
