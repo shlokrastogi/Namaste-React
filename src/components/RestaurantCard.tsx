@@ -5,6 +5,8 @@ import { CDN_URL } from "../utils/constants";
 const RestaurantCard = ({ restaurant }: { restaurant: RestaurantType }) => {
   if (!restaurant) return null; // prevents crash if prop is missing
 
+  console.log(restaurant);
+
   return (
     <div className="res-card">
       <Link className="card-link" to={`/restaurant/${restaurant.id}`}>

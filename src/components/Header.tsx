@@ -10,7 +10,7 @@ const Header = () => {
   // We can also use change value of context through <UserContext.Provider> in App.tsx it will
   // change the value throughout the component tree
   const data = useContext(UserContext);
-  console.log(data);
+  // console.log(data);
 
   // Suscribing to the Store using a useSelector hook
   const cartItems = useSelector((store: any) => store.cart.items);
