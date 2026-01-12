@@ -8,7 +8,7 @@ const RestaurantCard = ({ restaurant }: { restaurant: RestaurantType }) => {
   console.log(restaurant);
 
   return (
-    <div className="res-card">
+    <div className="res-card" data-testid="res-card">
       <Link className="card-link" to={`/restaurant/${restaurant.id}`}>
         <div className="res-img">
           <img

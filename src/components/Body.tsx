@@ -71,6 +71,7 @@ const Body = () => {
       <div className="filter">
         <input
           type="text"
+          data-testid="searchInput"
           className="search-input"
           placeholder="Search Restaurants"
           value={searchText}
