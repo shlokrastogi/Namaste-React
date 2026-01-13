@@ -2,7 +2,6 @@ import { menuItem } from "../types/menuItem";
 import { CDN_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { addItem } from "../utils/cartSlice";
-import { use } from "react";
 
 interface MenuItemsBodyProps {
   items: menuItem[];
@@ -26,7 +25,7 @@ const MenuItemsBody = ({ items }: MenuItemsBodyProps) => {
             key={item.id}
             className="border-b py-2 flex last:border-none first:border-t-2"
           >
-            <div className="flex-1 flex-col">
+            <div className="flex-1 flex-col" data-testid="foodItems">
               <p className="font-medium">{item.name}</p>
 
               {price > 0 && (

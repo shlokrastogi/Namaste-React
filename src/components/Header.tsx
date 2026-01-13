@@ -79,10 +79,11 @@ const Header = () => {
                 isActive ? "nav-link active" : "nav-link"
               }
             >
-              Cart 🛒{" "}
+              Cart{" "}
               <sup className="p-0.5 rounded-md bg-white text-red-600 font-bold">
                 {cartItems.length}
               </sup>
+              🛒
             </NavLink>
           </li>
         </ul>

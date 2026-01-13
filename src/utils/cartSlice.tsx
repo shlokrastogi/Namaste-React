@@ -31,3 +31,4 @@ const cartSlice = createSlice({
 
 export const { addItem, removeItem, clearCart } = cartSlice.actions;
 export default cartSlice.reducer;
+export const selectTotalItems = (state: any) => state.cart.items.length;
