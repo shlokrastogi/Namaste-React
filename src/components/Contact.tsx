@@ -6,24 +6,24 @@ const Contact = () => {
       </h1>
 
       <form aria-label="contact-form">
-        <div className="flex flex-col items-center bg-gray-100 p-4 rounded-lg w-4/6 m-auto">
+        <div className="w-full sm:w-4/6 flex flex-col items-center bg-gray-100 p-4 rounded-lg  m-auto">
           <input
             type="text"
-            className="border border-black p-2 m-2 w-1/2"
+            className="border border-black p-2 m-2 w-full sm:w-1/2"
             placeholder="Name"
           />
           <input
             type="email"
-            className="border border-black p-2 m-2 w-1/2"
+            className="border border-black p-2 m-2 w-full sm:w-1/2"
             placeholder="Email"
           />
           <textarea
-            className="border border-black p-2 m-2 w-1/2 h-32"
+            className="border border-black p-2 m-2 w-full sm:w-1/2 h-32"
             placeholder="Your Message"
           ></textarea>
           <button
             type="submit"
-            className="font-semibold border border-black p-2 m-2 mt-8 rounded-lg w-1/2 hover:bg-black hover:text-white transition"
+            className="font-semibold border border-black p-2 m-2 mt-8 rounded-lg w-full sm:w-1/2 hover:bg-black hover:text-white transition"
           >
             Submit
           </button>

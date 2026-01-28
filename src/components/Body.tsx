@@ -31,7 +31,7 @@ const Body = () => {
 
       const apiList =
         restData?.data?.cards?.find(
-          (c: any) => c?.card?.card?.gridElements?.infoWithStyle?.restaurants
+          (c: any) => c?.card?.card?.gridElements?.infoWithStyle?.restaurants,
         )?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
 
       const restList: RestaurantType[] = apiList.map((item: any) => {
@@ -64,34 +64,37 @@ const Body = () => {
     );
   }
 
-  if (loading) return <Shimmer />;
-
   return (
-    <div className="body">
-      <div className="filter">
-        <input
-          type="text"
-          data-testid="searchInput"
-          className="search-input"
-          placeholder="Search Restaurants"
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-        />
+    <div className="p-5 no-scrollbar overflow-scroll w-full">
+      {/* Search Bar & Buttons (always visible) */}
+      <div className="flex flex-col sm:flex-row gap-3 mb-5 justify-center">
+        <div className="flex">
+          <div className="flex flex-1 mr-2">
+            <input
+              type="text"
+              data-testid="searchInput"
+              className="w-full h-10 py-2 px-4 rounded-lg border border-gray-500"
+              placeholder="Search Restaurants"
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+            />
+          </div>
+
+          <button
+            className="py-2 px-4 h-10 rounded-lg bg-blue-500 text-white font-bold cursor-pointer"
+            onClick={() => {
+              const filteredList = allList.filter((res) =>
+                res.name.toLowerCase().includes(searchText.toLowerCase()),
+              );
+              setList(filteredList);
+            }}
+          >
+            Search
+          </button>
+        </div>
 
         <button
-          className="search-btn"
-          onClick={() => {
-            const filteredList = allList.filter((res) =>
-              res.name.toLowerCase().includes(searchText.toLowerCase())
-            );
-            setList(filteredList);
-          }}
-        >
-          Search
-        </button>
-
-        <button
-          className="filter-btn"
+          className="py-2 whitespace-nowrap h-10 px-4 rounded-lg bg-green-500 text-white font-bold cursor-pointer"
           onClick={() => {
             setList(allList.filter((res) => Number(res.avgRating) >= 4.5));
           }}
@@ -100,11 +103,16 @@ const Body = () => {
         </button>
       </div>
 
-      <div className="res-container">
-        {list.map((res) => {
-          const Card = res.promoted ? RestaurantCardPromoted : RestaurantCard;
-          return <Card key={res.id} restaurant={res} />;
-        })}
+      {/* Restaurant List / Shimmer */}
+      <div className="flex flex-col sm:flex-row flex-wrap gap-4 sm:justify-between">
+        {loading ? (
+          <Shimmer /> // Only show shimmer while loading
+        ) : (
+          list.map((res) => {
+            const Card = res.promoted ? RestaurantCardPromoted : RestaurantCard;
+            return <Card key={res.id} restaurant={res} />;
+          })
+        )}
       </div>
     </div>
   );

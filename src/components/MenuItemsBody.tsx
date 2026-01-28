@@ -17,12 +17,12 @@ const MenuItemsBody = ({ items }: MenuItemsBodyProps) => {
 
   return (
     <div className="mt-2 space-y-3">
-      {items.map((item) => {
+      {items.map((item, index) => {
         const price = (item.price ?? item.defaultPrice ?? 0) / 100;
 
         return (
           <div
-            key={item.id}
+            key={`${item.id}-${index}`}
             className="border-b py-2 flex last:border-none first:border-t-2"
           >
             <div className="flex-1 flex-col" data-testid="foodItems">

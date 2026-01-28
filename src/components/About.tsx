@@ -25,8 +25,8 @@ class About extends Component {
     console.log("Parent render");
 
     return (
-      <div className="about-page">
-        <h1>About Foodie's Haven</h1>
+      <div className="about-page m-2">
+        <h1 className="text-2xl mb-4">About Foodie's Haven</h1>
 
         <div className="">
           <UserContext.Consumer>
@@ -36,10 +36,10 @@ class About extends Component {
           </UserContext.Consumer>
         </div>
 
-        <User name={"Shlok Rastogi from (functional component)"} />
+        {/* <User name={"Shlok Rastogi from (functional component)"} />
 
         <UserClass name={"First child"} />
-        <UserClass name={"Second child"} />
+        <UserClass name={"Second child"} /> */}
       </div>
     );
   }
