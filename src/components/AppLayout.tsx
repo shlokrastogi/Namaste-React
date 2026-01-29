@@ -7,7 +7,7 @@ import appStore from "../utils/appStore";
 const AppLayout = () => (
   <Provider store={appStore}>
     <div className="mb-4">
-      <div className="mb-40 sm:mb-28">
+      <div className="mb-36">
         <Header />
       </div>
       <Outlet />

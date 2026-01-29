@@ -65,10 +65,10 @@ const Body = () => {
   }
 
   return (
-    <div className="px-5 no-scrollbar overflow-scroll w-full">
+    <div className="px-3 sm:px-5 w-full max-w-[1400px] mx-auto">
       {/* Search Bar & Buttons (always visible) */}
-      <div className="flex flex-col sm:flex-row gap-3 mb-5 justify-center">
-        <div className="flex">
+      <div className="flex flex-col sm:flex-row gap-3 mb-5 w-full">
+        <div className="flex flex-row gap-2 w-full">
           <div className="flex flex-1 mr-2">
             <input
               type="text"
@@ -104,15 +104,19 @@ const Body = () => {
       </div>
 
       {/* Restaurant List / Shimmer */}
-      <div className="flex flex-col sm:flex-row flex-wrap gap-4 sm:justify-between">
-        {loading ? (
-          <Shimmer /> // Only show shimmer while loading
-        ) : (
-          list.map((res) => {
-            const Card = res.promoted ? RestaurantCardPromoted : RestaurantCard;
-            return <Card key={res.id} restaurant={res} />;
-          })
-        )}
+      <div className="m-auto">
+        <div className="flex flex-col min-w-fit sm:flex-row flex-wrap gap-8 sm:justify-start">
+          {loading ? (
+            <Shimmer /> // Only show shimmer while loading
+          ) : (
+            list.map((res) => {
+              const Card = res.promoted
+                ? RestaurantCardPromoted
+                : RestaurantCard;
+              return <Card key={res.id} restaurant={res} />;
+            })
+          )}
+        </div>
       </div>
     </div>
   );

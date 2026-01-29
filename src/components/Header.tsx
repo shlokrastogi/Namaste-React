@@ -16,103 +16,72 @@ const Header = () => {
   const cartItems = useSelector((store: any) => store.cart.items);
 
   return (
-    <div className="fixed top-0 w-full flex flex-wrap bg-[#b51a1a]/[0.997] items-center z-30">
-      <div className="flex flex-row flex-1">
-        <div className="m-4">
+    <div className="fixed top-0 w-full bg-[#b51a1a]/[0.997] z-30">
+      {/* Top Row */}
+      <div className="flex flex-row sm:items-center sm:justify-between px-2 sm:px-4">
+        {/* Left: Logo + Title */}
+        <div className="flex flex-1 items-center gap-2 py-2">
           <img
             src="https://i.ibb.co/TxCccr45/logo-fotor-20251204224342.png"
             alt="logo"
-            className="h-14"
+            className="h-12 sm:h-14"
           />
-        </div>
-        <div className="flex flex-1 flex-nowrap text-white self-center text-xl font-bold italic ml-1 text-shadow-black text-shadow-md [text-shadow:2px_2px_4px_#000000]">
-          <h1>Foodie's Haven</h1>
+          <h1 className="text-xl sm:text-2xl text-white font-bold italic text-shadow-black [text-shadow:2px_2px_4px_#000000]">
+            Foodie's Haven
+          </h1>
         </div>
 
-        <div className="px-4 h-10 self-center py-2 mr-1 sm:mr-2 rounded-[20px] border-0 bg-white text-[rgb(181,26,26)] font-bold cursor-pointer">
+        {/* Right: Login + User */}
+        <div className="flex items-center mx-2 gap-2 pb-2 sm:pb-0">
           <button
+            className="px-4 py-1 rounded-[20px] bg-white text-[rgb(181,26,26)] font-bold"
             onClick={() =>
-              setIsLoggedIn((isLoggedIn) => {
-                return isLoggedIn === "Login" ? "Logout" : "Login";
-              })
+              setIsLoggedIn((prev) => (prev === "Login" ? "Logout" : "Login"))
             }
           >
             {isLoggedIn}
           </button>
-        </div>
-        <div className="bg-white self-center  text-red-600 m-2 p-2 rounded-md font-bold">
-          {data.loggedInUser}
+
+          <div className="bg-white text-red-600 px-3 py-1 rounded-md font-bold text-sm">
+            {data.loggedInUser}
+          </div>
         </div>
       </div>
 
-      <div className="flex whitespace-nowrap overflow-x-auto">
-        <ul className="flex flex-row m-2 px-1 border-2 border-[rgb(133,13,13)] outline outline-[0.5px] outline-black bg-[rgba(208,53,53,0.997)] rounded-2xl">
-          <li className="list-none text-white py-2">
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                isActive
-                  ? "bg-white py-[5px] px-4 text-red-600 rounded-[25px] underline"
-                  : "no-underline text-inherit py-[5px] px-4"
-              }
-            >
-              Home
-            </NavLink>
-          </li>
-          <li className="list-none text-white py-2">
-            <NavLink
-              to="/cart"
-              className={({ isActive }) =>
-                isActive
-                  ? "bg-white py-[5px] px-4 text-red-600 rounded-[25px] underline"
-                  : "no-underline text-inherit py-[5px] px-4"
-              }
-            >
-              Cart{" "}
-              <sup className="px-0.5 rounded-md bg-white text-red-600 font-bold">
-                {cartItems.length}
-              </sup>
-              🛒
-            </NavLink>
-          </li>
-          <li className="list-none text-white py-2">
-            <NavLink
-              to="/about"
-              className={({ isActive }) =>
-                isActive
-                  ? "bg-white py-[5px] px-4 text-red-600 rounded-[25px] underline"
-                  : "no-underline text-inherit py-[5px] px-4"
-              }
-            >
-              About Us
-            </NavLink>
-          </li>
-
-          <li className="list-none text-white py-2">
-            <NavLink
-              to="/contact"
-              className={({ isActive }) =>
-                isActive
-                  ? "bg-white py-[5px] px-4 text-red-600 rounded-[25px] underline"
-                  : "no-underline text-inherit py-[5px] px-4"
-              }
-            >
-              Contact Us
-            </NavLink>
-          </li>
-
-          <li className="list-none text-white py-2">
-            <NavLink
-              to="/grocery"
-              className={({ isActive }) =>
-                isActive
-                  ? "bg-white py-[5px] px-4 text-red-600 rounded-[25px] underline"
-                  : "no-underline text-inherit py-[5px] px-4"
-              }
-            >
-              Grocery
-            </NavLink>
-          </li>
+      {/* Bottom Nav */}
+      <div className="w-100 mx-1 scrollbar-hide overflow-x-auto mb-1">
+        <ul className="w-max sm:w-full flex justify-between sm:justify-between gap-2 px-2 py-2 border-2 border-[rgb(133,13,13)] bg-[rgba(208,53,53,0.997)] rounded-2xl whitespace-nowrap">
+          {[
+            { to: "/", label: "Home" },
+            {
+              to: "/cart",
+              label: (
+                <>
+                  Cart{" "}
+                  <sup className="px-1 bg-white text-red-600 rounded">
+                    {cartItems.length}
+                  </sup>{" "}
+                  🛒
+                </>
+              ),
+            },
+            { to: "/about", label: "About Us" },
+            { to: "/contact", label: "Contact Us" },
+            { to: "/grocery", label: "Grocery" },
+          ].map((item) => (
+            <li key={item.to} className="text-white">
+              <NavLink
+                to={item.to}
+                className={({ isActive }) =>
+                  isActive
+                    ? "bg-white text-red-600 px-4 py-1 rounded-[25px] underline"
+                    : "px-4 py-1"
+                }
+              >
+                {item.label}
+              </NavLink>
+            </li>
+          ))}
         </ul>
       </div>
     </div>
