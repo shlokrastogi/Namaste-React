@@ -65,7 +65,7 @@ const Body = () => {
   }
 
   return (
-    <div className="p-5 no-scrollbar overflow-scroll w-full">
+    <div className="px-5 no-scrollbar overflow-scroll w-full">
       {/* Search Bar & Buttons (always visible) */}
       <div className="flex flex-col sm:flex-row gap-3 mb-5 justify-center">
         <div className="flex">

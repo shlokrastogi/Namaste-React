@@ -16,7 +16,7 @@ const Header = () => {
   const cartItems = useSelector((store: any) => store.cart.items);
 
   return (
-    <div className="w-full flex flex-wrap bg-[#b51a1a]/[0.997] items-center ">
+    <div className="fixed top-0 w-full flex flex-wrap bg-[#b51a1a]/[0.997] items-center z-30">
       <div className="flex flex-row flex-1">
         <div className="m-4">
           <img
@@ -46,7 +46,7 @@ const Header = () => {
       </div>
 
       <div className="flex whitespace-nowrap overflow-x-auto">
-        <ul className="flex flex-row m-2 border-2 border-[rgb(133,13,13)] outline outline-[0.5px] outline-black bg-[rgba(208,53,53,0.997)] rounded-2xl">
+        <ul className="flex flex-row m-2 px-1 border-2 border-[rgb(133,13,13)] outline outline-[0.5px] outline-black bg-[rgba(208,53,53,0.997)] rounded-2xl">
           <li className="list-none text-white py-2">
             <NavLink
               to="/"

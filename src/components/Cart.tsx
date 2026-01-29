@@ -15,7 +15,7 @@ const Cart = () => {
 
   return (
     <div>
-      <div className="mx-2 flex items-center mt-4 p-4 bg-gray-200 font-semibold rounded-lg sm:w-4/6 m-auto">
+      <div className="mx-2 sm:m-auto flex items-center mt-4 p-4 bg-gray-200 font-semibold rounded-lg sm:w-4/6 m-auto">
         <h1 className="flex-1 text-2xl">Cart Items</h1>
         <button
           className="p-2 m-2 text-green-600 border border-green-600 rounded-md hover:bg-green-600 hover:text-white transition"

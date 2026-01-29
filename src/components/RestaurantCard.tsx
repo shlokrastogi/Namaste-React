@@ -9,7 +9,7 @@ const RestaurantCard = ({ restaurant }: { restaurant: RestaurantType }) => {
 
   return (
     <div
-      className="w-full  h-max sm:w-[200px] rounded-[5px] p-[5px] shadow-md bg-gradient-to-b from-[#dddddd] from-[40%] via-[#f0f0f0] via-[75%] to-white    hover:shadow-[0_8px_16px_rgba(0,0,0,0.3)] hover:scale-[0.98] cursor-pointer"
+      className="w-full h-max sm:[250px] sm:w-[200px] rounded-[5px] p-[5px] shadow-md bg-gradient-to-b from-[#dddddd] from-[40%] via-[#f0f0f0] via-[75%] to-white    hover:shadow-[0_8px_16px_rgba(0,0,0,0.3)] hover:scale-[0.98] cursor-pointer"
       data-testid="res-card"
     >
       <Link
